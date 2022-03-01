@@ -1,7 +1,5 @@
 # FIT to Heatmap Overview
-Python code to parse FIT files and create heatmap
-
-This is inspired by https://github.com/TomCasavant/GPXtoHeatmap
+Python code to parse FIT files and create heatmap.
 
 
 
@@ -38,8 +36,10 @@ $ python3 heatmap.py --input fit --output map2 --year 2019
 $ python3 heatmap.py --input fit --output map3 --year 2019 --year 2020
 ```
 
-#### Retrieving GPX Files
+#### Retrieving FIT Files
 
 - Strava users can follow [Strava's instructions](https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export) to export FIT data
 
+#### Inspiration
+- This is inspired by https://github.com/TomCasavant/GPXtoHeatmap
 
