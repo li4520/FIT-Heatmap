@@ -1,8 +1,7 @@
 # FIT to Heatmap Overview
 Python code to parse FIT files and create heatmap
-* Use fitdecode to parse FIT files
-* Create heatmap using Google Maps (config.ini)
-* ...
+* Use fitdecode to parse FIT files and get all the coordinates
+* Pass all coordinates into Google Maps to create heatmap
 
 
 
