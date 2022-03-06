@@ -17,12 +17,13 @@ INITIAL_ZOOM = parser.get('MAP', 'ZOOM')
 @click.option("--input", default="fit", help="Specify an input folder. Defaults to `fit`")
 @click.option("--filter", default=None, help="Specify a filter type. Defaults to no filter", type=click.Choice(['running', 'cycling', 'walking']))
 @click.option("--year", default=None, help="Specify a year. Defaults to no year", type=int, multiple=True)
+
 def main(output, input, filter, year):
     points = load_points(input, filter, year)
     generate_html(points, output)
 
 
-# Convert Garmin time format to Python datetime.
+# Convert Garmin time format to Python datetime - not needed anymore.
 """ 
 def convert_frame_datetime(frame_datetime):
     converted_frame_datetime = datetime.strptime(
@@ -54,21 +55,19 @@ def load_points(folder, filter, year):
         for filename in bar:
             # Verify file is a fit file
             if (filename.lower().endswith(".fit")):
-
                 fit_file = os.path.join(folder, filename)
-                # Get fit file's created date and compare year
+                # Get fit file's created date
                 fit_created_year = get_fit_time(fit_file).year
-                # Only continue if year list is empty OR fit file year is in the command --year
+                # Only continue if year list is empty OR fit file's year is part of the year(s) you want to process
                 if not year or fit_created_year in year:
-                    # print("file year ", fit_created_year)
-
                     with fitdecode.FitReader(fit_file) as fit:
                         for frame in fit:
                             if isinstance(frame, fitdecode.records.FitDataMessage):
+                                # only pull 'record' frame - this is where coordinates are
                                 if frame.name == 'record':
                                     if frame.has_field('position_lat') and frame.has_field('position_long'):
                                         # Get Garmin Lat and Long from each frame
-                                        # Convert Garmin GPS coordinates based on this https://gis.stackexchange.com/questions/122186/convert-garmin-or-iphone-weird-gps-coordinates/368905#368905
+                                        # Convert Garmin GPS coordinates, calculcations based on this https://gis.stackexchange.com/questions/122186/convert-garmin-or-iphone-weird-gps-coordinates/368905#368905
                                         frame_lat = float(frame.get_value(
                                             'position_lat')) / ((2**32)/360)
                                         frame_long = float(frame.get_value(
