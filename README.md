@@ -5,7 +5,7 @@ Majority of my ride files these days are in FIT format. I needed a way to parse 
 Python code to parse FIT files and create heatmap:
 * Use fitdecode to parse FIT files and get all the coordinates
 * Pass all the coordinates into Google Maps to create heatmap
-** You will need your own Google Maps API in the config.ini for the maps to render
+* You will need your own Google Maps API in the config.ini for the maps to render
 
 
 
